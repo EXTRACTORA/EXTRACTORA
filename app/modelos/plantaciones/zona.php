@@ -12,7 +12,6 @@ class zona extends Model
 		'nombre',
 		'descripcion'		
 	];
-
 	
 	//Relaciones
 	public function plantacion(){          

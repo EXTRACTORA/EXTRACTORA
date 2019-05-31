@@ -1,291 +1,242 @@
+var form;var url;var table = null;var CSRF_TOKEN;
+var txt_buscar ="buscar";var txt_nuevo ="nuevo";var txt_editar ="editar";
+var txt_eliminar ="eliminar";var txt_guardar ="guardar";var textoAyuda ="ayuda";
 
-
-var nthTabs;
-var form;   
-var url;
-var title; 
-var existe = false
-$(document).ready(function() { 
-
-    tab_seleccionar();
+$(document).ready( function () { 
+    CSRF_TOKEN = $("meta[name='csrf-token']").attr("content"); 
 
 
 
-    nthTabs = $("#main-tabs").nthTabs();
+
+} );
 
 
 
-//---------------------------------seleccion de las tab------------------------------------
-    // on click perfiles - INDEX
-    $(".open_tab").on('click', function() {
+function buscar(name){ //---------------------------------------------------txt_buscar----------------------
 
-        var form;   
-        var url;
-        var title; 
-        var existe = false
-        switch(this.name) {
-            //---------------------usuarios--------------------             
-            case 'tab-perfiles':
-            form = $('#form-index-perfiles');   
-            title ='Perfiles';  
-            existe = true;
-            break;
-            case 'tab-permisos':
-            form = $('#form-index-permisos');   
-            title ='Permisos'; 
-            existe = true; 
-            break;
-            case 'tab-usuarios':
-            form = $('#form-index-usuarios');   
-            title ='Usuarios'; 
-            existe = true; 
-            break;
-            //---------------------usuarios-------------------- 
-            //---------------------plantaciones----------------         
-            case 'tab-grupos':
-            form = $('#form-index-grupos');   
-            title ='Grupos'; 
-            existe = true;
-            break;
-            case 'tab-zonas':
-            form = $('#form-index-zonas');   
-            title ='Zonas'; 
-            existe = true;
-            break;
-            case 'tab-ubicaciones':
-            form = $('#form-index-ubicaciones');
-            title ='Ubicaciones'; 
-            existe = true;   
-            break;
-            case 'tab-plantaciones':
-            form = $('#form-index-plantaciones');   
-            title ='Plantaciones';
-            existe = true; 
-            break;
-            //---------------------plantaciones---------------- 
-            //----------------------vehiculos------------------ 
-            case 'tab-tipo-vehiculo':
-            form = $('#form-index-tipo_vehiculos');   
-            title ='Tipo vehiculos'; 
-            existe = true;
-            break;
-            case 'tab-vehiculos':
-            form = $('#form-index-vehiculos');   
-            title ='Vehiculos'; 
-            existe = true;
-            break;          
-            //----------------------vehiculos------------------
-            //----------------------productos------------------ 
-            case 'tab-clase-productos':
-            form = $('#form-index-clases_productos');   
-            title ='Clases productos'; 
-            break;
-            case 'tab-productos':
-            form = $('#form-index-productos');   
-            title ='Productos'; 
-            existe = true;
-            break;          
-            //----------------------productos------------------ 
-            //-----------------------tercero------------------- 
-            case 'tab-tipo-tercero':
-            form = $('#form-index-tipo_terceros');   
-            title ='Tipo terceros';
-            existe = true; 
-            break;
-            case 'tab-tercero':
-            form = $('#form-index-terceros');   
-            title ='Terceros'; 
-            existe = true;
-            break;          
-            //-----------------------tercero-------------------     
-            //-----------------------Paradas------------------- 
-            case 'tab-tipo-parada':
-            form = $('#form-index-tipo_paradas');   
-            title ='Tipo paradas'; 
-            existe = true;
-            break;
-            case 'tab-parada':
-            form = $('#form-index-paradas');   
-            title ='Paradas';
-            existe = true; 
-            break;          
-            //-----------------------Paradas------------------- 
-            //-----------------------Equipos------------------- 
-            case 'tab-fase-proceso':
-            form = $('#form-index-fases_proceso');   
-            title ='Fases proceso';
-            existe = true; 
-            break;
-            case 'tab-equipos':
-            form = $('#form-index-equipos');   
-            title ='Equipos'; 
-            existe = true;
-            break;          
-            //-----------------------Equipos------------------- 
-            //-----------------------Generales-------------------   
-            case 'tab-unidades-medida':
-            form = $('#form-index-unidades_medida');   
-            title ='Unidades medida';
-            existe = true; 
-            break;
-            case 'tab-divicion-geografica':
-            form = $('#form-index-division_geografica');   
-            title ='Division geografica';
-            existe = true; 
-            break;      
-            case 'tab-tipos-identiicacion':
-            form = $('#form-index-tipos_identificacion');   
-            title ='Tipos identificacion';
-            existe = true; 
-            break;      
-            //-----------------------Generales-------------------   
-            default:
-            
-
-        }
-        if (true) {
-            url = form.attr('action'); 
-            $.ajax({
-                url: url,
-                type: 'GET',
-                data: form.serialize(),
-                success: function(response) {
-                // console.log("response", response.id);
-
-                var id = Math.ceil(Math.random() * 1000);
-                nthTabs.addTab({
-                    id: "nth-tab-" + id,
-                    title: title,
-                    content: response,
-                    active: true,
-                    allowClose: true,
-                    location: true,
-                    fadeIn: false
-                })
-            },
-            error: function(xhr, status) {
-                errorAjax(xhr, status);
-            },
-        });
-        }
-
-    }); 
-
-//---------------------------------seleccion de las tab------------------------------------
-});
-
-
-function tab_seleccionar(){
-   form = $('#form-index-perfiles');   
-   title ='Perfiles';  
-   existe = true;
-   url = form.attr('action'); 
-   $.ajax({
-    url: url,
-    type: 'GET',
-    data: form.serialize(),
-    success: function(response) {
-                // console.log("response", response.id);
-
-                var id = Math.ceil(Math.random() * 1000);
-                nthTabs.addTab({
-                    id: "nth-tab-" + id,
-                    title: title,
-                    content: response,
-                    active: true,
-                    allowClose: true,
-                    location: true,
-                    fadeIn: false
-                })
-            },
-            error: function(xhr, status) {
-                errorAjax(xhr, status);
-            },
-        });
+ switch(name) {                    
+        case 'perfil'://-------------------------------perfil     
+            opciones_perfil(txt_buscar);  
+        break;
+        case 'grupos'://-------------------------------grupos  
+            opciones_grupo(txt_buscar);   
+        break;
+        case 'zonas'://-------------------------------zonas  
+            opciones_zona(txt_buscar);   
+        break;
+        case 'ubicaciones'://--------------------------ubicaciones        
+            opciones_ubicacion(txt_buscar);   
+        break;
+        case 'unidades_medidas'://------------------------unidades_medida        
+            opciones_unidades_medida(txt_buscar);   
+        break;
+        case 'plantaciones'://-----------------------------plantaciones        
+            opciones_plantacion(txt_buscar);   
+        break;
+        case 'actividad_economicas'://-----------------------actividad_economica
+            opciones_actividad_economica(txt_buscar);   
+        break;
+        case 'tipo_identificaciones'://----------------------tipo identificaciones        
+            opciones_tipo_identificacion(txt_buscar);   
+        break;
+        case 'terceros'://----------------------------------terceros       
+            opciones_tercero(txt_buscar);   
+        break;
+    }    
 }
+function nuevo(name){//---------------------------------------------------txt_nuevo----------------------
+    switch(name) {                    
+        case 'perfil'://------------------------------perfil     
+        opciones_perfil(txt_nuevo);   
+        break;
+        case 'grupos'://-------------------------------grupos  
+        opciones_grupo(txt_nuevo);   
+        break;
+        case 'zonas'://-------------------------------zonas  
+        opciones_zona(txt_nuevo);   
+        break;
+        case 'ubicaciones'://--------------------------ubicaciones
+        opciones_ubicacion(txt_nuevo);   
+        break;
+        case 'unidades_medidas'://----------------------unidades_medida        
+        opciones_unidades_medida(txt_nuevo);   
+        break;
+        case 'plantaciones'://--------------------------plantaciones        
+        opciones_plantacion(txt_nuevo);   
+        break;
+        case 'actividad_economicas'://-----------------------actividad_economica        
+        opciones_actividad_economica(txt_nuevo);   
+        break;
+        case 'tipo_identificaciones'://----------------------tipo identificaciones        
+        opciones_tipo_identificacion(txt_nuevo);   
+        break;
+        case 'terceros'://----------------------------------terceros       
+            opciones_tercero(txt_nuevo);   
+        break;
+      }   
+  } 
+ function editar(name){//---------------------------------------------------txt_editar---------------------- 
 
-
-
-
-
-
-
-
- // nthTabs = $("#main-tabs").nthTabs();
-
- //    nthTabs.addTab({
- //        id: 'home',
- //        title: 'Home',
- //        url: "https://www.jqueryscript.net",
- //        active: true,
- //        allowClose: false
- //    });
-
- //    nthTabs.addTab({
- //        id: 'menu-manage',
- //        title: 'Menu',
- //        active: false,
- //        content: 'Menu Content'
- //    }).addTab({
- //        id: 'role-manage',
- //        title: 'Role',
- //        active: false,
- //        content: 'Role Content'
- //    });
-
- //    $("#add-tab-content").on("click", function () {
- //        var id = Math.ceil(Math.random() * 1000);
- //        nthTabs.addTab({
- //            id: "nth-tab-" + id,
- //            title: 'Tab-' + id,
- //            content: 'Tab Content ' + id,
- //            active: true,
- //            allowClose: true,
- //            location: true,
- //            fadeIn: false
- //        })
- //    });
-
- //    $("#add-tab-url").on("click", function () {
- //        var id = Math.ceil(Math.random() * 1000);
- //        nthTabs.addTab({
- //            id: "nth-tab-" + id,
- //            title: 'URL Tab-' + id,
- //            url: "https://www.jqueryscript.net",
- //            active: true,
- //            allowClose: true,
- //            location: false,
- //            fadeIn: true
- //        });
- //    });
-
- //    $("#add-tabs").on("click", function () {
- //        nthTabs.addTabs([{
- //            id: 'user-manage',
- //            title: 'User',
- //            content: 'User Content'
- //        }, {
- //            id: 'auth-manage',
- //            title: 'Auth',
- //            content: 'Auth Content'
- //        }]);
- //    });
-
- //    $("#tab-plantacioness").on('click', function() {
-
- //     var form = $('#form-index');   
- //     var url = form.attr('action'); 
- //     $.ajax({
- //        url: url,
- //        type: 'GET',
- //        data: form.serialize(),
- //        success: function(response) {   
- //            console.log('response index: ', response.msg);
- //        },
- //        error: function(xhr, status) {
- //            errorAjax(xhr, status);
- //        },
- //    });
-
-
- // });   
+  switch(name) {                    
+        case 'perfil'://-------------------------------perfil     
+        opciones_perfil(txt_editar);          
+        break;
+        case 'grupos'://-------------------------------grupos  
+        opciones_grupo(txt_editar);   
+        break;
+        case 'zonas'://-------------------------------zonas  
+        opciones_zona(txt_editar);   
+        break;
+        case 'ubicaciones'://--------------------------ubicaciones   
+        opciones_ubicacion(txt_editar);   
+        break;
+        case 'unidades_medidas'://----------------------unidades_medida        
+        opciones_unidades_medida(txt_editar);   
+        break;
+        case 'plantaciones'://--------------------------plantaciones        
+        opciones_plantacion(txt_editar);   
+        break;
+        case 'actividad_economicas'://-----------------------actividad_economica  
+         opciones_actividad_economica(txt_editar);   
+        break;
+        case 'tipo_identificaciones'://----------------------tipo identificaciones        
+        opciones_tipo_identificacion(txt_editar);   
+        break;
+        case 'terceros'://----------------------------------terceros       
+            opciones_tercero(txt_editar);   
+        break;
+      }   
+  } 
+ function eliminar(name){//---------------------------------------------------txt_eliminar----------------------  
+  switch(name) {                    
+        case 'perfil'://-------------------------------perfil     
+        opciones_perfil(txt_eliminar); 
+        break;
+        case 'grupos'://-------------------------------grupos  
+        opciones_grupo(txt_eliminar);   
+        break;
+        case 'zonas'://-------------------------------zonas  
+        opciones_zona(txt_eliminar);   
+        break;
+        case 'ubicaciones'://--------------------------ubicaciones
+        opciones_ubicacion(txt_eliminar);   
+        break;
+        case 'unidades_medidas'://----------------------unidades_medida        
+        opciones_unidades_medida(txt_eliminar);   
+        break;
+        case 'plantaciones'://--------------------------plantaciones        
+        opciones_plantacion(txt_eliminar);   
+        break;
+        case 'actividad_economicas'://-----------------------actividad_economica        
+        opciones_actividad_economica(txt_eliminar);   
+        break;
+        case 'tipo_identificaciones'://----------------------tipo identificaciones        
+        opciones_tipo_identificacion(txt_eliminar);   
+        break;
+        case 'terceros'://----------------------------------terceros       
+            opciones_tercero(txt_eliminar);   
+        break;
+        }
+    } 
+ function guardar(name){//---------------------------------------------------txt_guardar----------------------
+  switch(name) { 
+        case 'perfil'://--------------------------------perfil     
+        opciones_perfil(txt_guardar); 
+        break;
+        case 'grupos'://---------------------------------grupos  
+        opciones_grupo(txt_guardar);   
+        break;
+        case 'zonas'://----------------------------------zonas  
+        opciones_zona(txt_guardar);   
+        break;
+        case 'ubicaciones'://--------------------------ubicaciones
+        opciones_ubicacion(txt_guardar);   
+        break;
+        case 'unidades_medidas'://----------------------unidades_medida        
+        opciones_unidades_medida(txt_guardar);   
+        break;
+        case 'plantaciones'://--------------------------plantaciones        
+        opciones_plantacion(txt_guardar);   
+        break;
+        case 'actividad_economicas'://-----------------------actividad_economica        
+        opciones_actividad_economica(txt_guardar);   
+        break;
+        case 'tipo_identificaciones'://----------------------tipo identificaciones        
+        opciones_tipo_identificacion(txt_guardar);   
+        break;
+        case 'terceros'://----------------------------------terceros       
+            opciones_tercero(txt_guardar);   
+        break;
+        }
+    } 
+ function ir(modulo,ir){//---------------------------------------------------IR-----------------------
+    switch(modulo){
+        case "perfil"://------------------------------perfil 
+        ir_perfil(modulo,ir);     
+        break;        
+        case "grupos"://-------------------------------grupos
+        ir_grupo(modulo,ir);  
+        break;
+        case 'zonas'://-------------------------------zonas  
+        ir_zona(modulo,ir); 
+        break;
+        case 'ubicaciones'://--------------------------ubicaciones
+        ir_ubicacion(modulo,ir);  
+        break;
+        case 'unidades_medidas'://----------------------unidades_medida        
+        ir_unidades_medida(modulo,ir);   
+        break;
+        case 'plantaciones'://--------------------------plantaciones        
+        ir_plantacion(modulo,ir);   
+        break;
+        case 'actividad_economicas'://-----------------------actividad_economica  
+        ir_actividad_economica(modulo,ir);   
+        break;
+        case 'tipo_identificaciones'://----------------------tipo identificaciones        
+        ir_tipo_identificacion(modulo,ir);   
+        break;
+        case 'terceros'://----------------------------------terceros       
+            ir_tercero(modulo,ir);   
+        break;
+       }
+   }
+function ayuda(name){//---------------------------------------------------AYUDA----------------------
+    switch(name){
+        case "perfil"://------------------------------perfil
+        opciones_perfil(textoAyuda);    
+        break;
+        case "grupos"://-------------------------------grupos
+        opciones_grupo(textoAyuda);
+        break;
+        case 'zonas'://-------------------------------zonas  
+        opciones_zona(textoAyuda);         
+        break;
+        case 'ubicaciones'://--------------------------ubicaciones
+        opciones_ubicacion(textoAyuda);   
+        break;
+        case 'unidades_medidas'://----------------------unidades_medida        
+        opciones_unidades_medida(textoAyuda);   
+        break;
+        case 'plantaciones'://--------------------------plantaciones        
+        opciones_plantacion(textoAyuda);   
+        break;
+        case 'actividad_economicas'://-----------------------actividad_economica        
+        opciones_actividad_economica(textoAyuda);   
+        break;
+        case 'tipo_identificaciones'://----------------------tipo identificaciones        
+        opciones_tipo_identificacion(textoAyuda);   
+        break;
+        case 'terceros'://----------------------------------terceros       
+            opciones_tercero(textoAyuda);   
+        break;
+      }
+  } 
+function errors(xhr){//---------------------------------------------------ERROR----------------------
+    var text_error = jQuery.parseJSON(xhr.responseText);
+    var msg = "";
+    $.each( text_error, function( key, value ) {
+        msg = msg + "\n" + value;                   
+    });
+    alert(msg);
+}
+function imprimir(name){}//---------------------------------------------------IMPRIMIR----------------------  

@@ -1,3 +1,10 @@
+// $.get(url, function(response) {                     
+    
+// }).fail(function(xhr, status) {             
+//     alert("error"); 
+// }); 
+
+
 // index
 function index()  {
     var form = $('#form-index');   
@@ -12,6 +19,8 @@ function index()  {
         error: function(xhr, status) {
             errorAjax(xhr, status);
         },
+
+      
     });
 }   
 // create               
@@ -49,7 +58,7 @@ function show(id) {
 // edit               
 function edit(id) {
     var form = $('#form-edit');   
-     var url = form.attr('action').replace(':ID',id); 
+    var url = form.attr('action').replace(':ID',id); 
     $.ajax({
         url: url,
         type: 'GET',
@@ -97,7 +106,7 @@ function update(id) {
 // deletes              
 function deletes(id) {
     var form = $('#form-deletes');   
-       var url = form.attr('action').replace(':ID',id); 
+    var url = form.attr('action').replace(':ID',id); 
     $.ajax({
         url: url,
         type: 'DELETE',

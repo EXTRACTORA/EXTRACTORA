@@ -17,7 +17,6 @@ class plantacion extends Model
 		'zona_id',
 		'grupo_id',
 		'ubicacion_id',
-		'tipo_proveedor_id',
 		'tercero_factura_id',
 		'tercero_encargado_id',
 		'tercero_propietario_id',

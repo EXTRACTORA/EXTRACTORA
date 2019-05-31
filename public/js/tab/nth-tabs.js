@@ -78,7 +78,7 @@
 
             // 获取当前活动状态选项卡ID
             getActiveId: function () {
-                return nthTabs.find('li[class="active"]').find("a").attr("href").replace('#', '');
+                // return nthTabs.find('li[class="active"]').find("a").attr("href").replace('#', '');
             },
 
             // 获取所有选项卡
@@ -356,16 +356,16 @@
             onTabToggle: function(){
                 nthTabs.on("click", '.nav-tabs li', function () {
                     var lastTabText = nthTabs.find(".nav-tabs li a[href='#"+methods.getActiveId()+"'] span").text();
-                    handler["tabToggleHandler"]({
-                        last:{
-                            tabId:methods.getActiveId(),
-                            tabText:lastTabText
-                        },
-                        active:{
-                            tabId:$(this).find("a").attr("href").replace('#',''),
-                            tabText:$(this).find("a span").text()
-                        }
-                    });
+                    // handler["tabToggleHandler"]({
+                    //     last:{
+                    //         tabId:methods.getActiveId(),
+                    //         tabText:lastTabText
+                    //     },
+                    //     active:{
+                    //         tabId:$(this).find("a").attr("href").replace('#',''),
+                    //         tabText:$(this).find("a span").text()
+                    //     }
+                    // });
                 });
             }
         };

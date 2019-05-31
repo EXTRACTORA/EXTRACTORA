@@ -1,52 +1,31 @@
 <div class="box box-success">
-	<div class="box-header with-border padin-box-header">
-		
+	<div class="box-header with-border padin-box-header">		
 		<div class="row">
 			<div class="col-lg-12 mb-5">
-
-				@include('menu.barras.usuarios.barra_perfil') 
-			{{-- 	<button onclick="newCalidadfrutaCampo();" id="btnCrearPlantacion" title="Guardar y nueva inspeccion" type="button" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i></button>				
-
-				{!!link_to_route('perfiles.index',$title = '',null,$attributes = ['class'=>'btn btn-default glyphicon glyphicon-log-out','id'=>'btnCancelarCalidadfrutacampo'])!!}	 --}}	
+				@include('menu.barras.usuarios.barra_perfil') 	
 			</div>
 		</div>
 		<div class="box-tools pull-right">	
-			<h3 class="box-title">Perfiles</h3>
-			
+			<h3 class="box-title">{{ trans('adminlte_lang::menu.perfiles') }}</h3>			
 		</div>
-		{{-- <img src="img/loading.gif"> --}}
-		<!-- /.box-tools -->
 	</div><!-- /.box-header -->
 	<div class="box-body form-horizontal">
-
-
-		<div class="col-sm-6">
-			<div class="form-group">
-				<label for="MainContent_text_reg_nombre" class="col-sm-4 control-label">Codigo:</label>
-				<div class="col-sm-8">
-					<input name="codigo_perfil" id="" class="form-control" type="text">
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="MainContent_text_reg_telefono" class="col-sm-4 control-label">Nombre</label>
-				<div class="col-sm-8">
-					<input name="nombre_perfil" id="nombre_perfil" class="form-control" type="text">
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="MainContent_text_reg_email" class="col-sm-4 control-label">Descripcion</label>
-				<div class="col-sm-8">
-					<input name="descripcion_perfil" id="descripcion_perfil" class="form-control" type="text">
-				</div>
-			</div>
-			
-		</div>
-		<div class="col-sm-6">
-	
-
-	@include('menu.usuarios.perfiles.modal.modal_perfiles') 
+		<div class="panel panel-default">
+			{{ Form::open(array('route' => 'perfiles.store','id' =>'form-store-perfiles','method' => 'POST' )) }}
+			@include('menu.usuarios.perfiles.forms.contenidoformulario')
+			{{ Form::close() }}	
 		</div>
 	</div>
-
-
+	@include('ayudas.ayuda_perfiles')
+	{{-- create  --}}
+	{{ Form::open(array('route' => 'perfiles.create','id' =>'form-create-perfiles','method' => 'GET' )) }}{{ Form::close() }}	
+	{{-- update  --}}
+	{{ Form::open(array('route' => ['perfiles.update',':ID'],'id' =>'form-update-perfiles','method' => 'PUT' )) }}
+	{{ Form::close() }}
+	{{-- delete --}}
+	{{ Form::open(array('route' => ['perfiles.destroy',':ID'],'id' =>'form-deletes-perfiles','method' => 'DELETE' )) }}{{ Form::close() }}
+	{{-- scripts --}}
+	@section('scripts')
+	{!!Html::script('js/usuarios/perfiles.js')!!}
+	@show
 

@@ -42,9 +42,19 @@
                    <li><a href="javascript:void(0)" name="tab-usuarios" class="open_tab">{{ trans('adminlte_lang::menu.usuarios') }} </a></li>                 
                </ul>
            </li>
+           {{-- Terceros --}}
+        <li class="treeview">
+            <a href="#"><i class='fa fa-users'></i> <span>{{ trans('adminlte_lang::menu.terceros') }}</span> <i class="fa fa-angle-left pull-right"></i></a>
+            <ul class="treeview-menu">
+                 <li><a href="javascript:void(0)" name="tab-tipo-identificacion" class="open_tab">{{ trans('adminlte_lang::menu.tipo_identificacion') }}</a></li>
+                   <li><a href="javascript:void(0)" name="tab-actividad-economica" class="open_tab">{{ trans('adminlte_lang::menu.actividad_economica') }}</a></li>
+                <li><a href="javascript:void(0)" name="tab-tipo-tercero" class="open_tab">{{ trans('adminlte_lang::menu.tipo_terceros') }}</a></li>
+                <li><a href="javascript:void(0)" name="tab-tercero" class="open_tab">{{ trans('adminlte_lang::menu.terceros') }}</a></li>                  
+            </ul>
+        </li>
            {{-- plantaciones --}} 
            <li class="treeview">
-            <a href="#"><i class='fa fa-pagelines'></i> <span>{{ trans('adminlte_lang::menu.plantaciones') }}</span> <i class="fa fa-angle-left pull-right"></i></a>
+            <a href="#"><i class='fa fa-tree'></i> <span>{{ trans('adminlte_lang::menu.plantaciones') }}</span> <i class="fa fa-angle-left pull-right"></i></a>
             <ul class="treeview-menu">
 
                 <li><a href="javascript:void(0)" name="tab-grupos" class="open_tab">{{ trans('adminlte_lang::menu.grupos') }}</a></li>
@@ -63,20 +73,13 @@
         </li>
         {{-- Productos --}}
         <li class="treeview">
-            <a href="#"><i class='fa fa-product-hunt'></i> <span>{{ trans('adminlte_lang::menu.productos') }}</span> <i class="fa fa-angle-left pull-right"></i></a>
+            <a href="#"><i class='fa fa-tint'></i> <span>{{ trans('adminlte_lang::menu.productos') }}</span> <i class="fa fa-angle-left pull-right"></i></a>
             <ul class="treeview-menu">
                 <li><a href="javascript:void(0)" name="tab-clase-productos" class="open_tab">{{ trans('adminlte_lang::menu.clases') }}</a></li>
                 <li><a href="javascript:void(0)" name="tab-productos" class="open_tab">{{ trans('adminlte_lang::menu.productos') }}</a></li>                  
             </ul>
         </li>
-        {{-- Terceros --}}
-        <li class="treeview">
-            <a href="#"><i class='fa fa-users'></i> <span>{{ trans('adminlte_lang::menu.terceros') }}</span> <i class="fa fa-angle-left pull-right"></i></a>
-            <ul class="treeview-menu">
-                <li><a href="javascript:void(0)" name="tab-tipo-tercero" class="open_tab">{{ trans('adminlte_lang::menu.tipo_terceros') }}</a></li>
-                <li><a href="javascript:void(0)" name="tab-tercero" class="open_tab">{{ trans('adminlte_lang::menu.terceros') }}</a></li>                  
-            </ul>
-        </li>
+        
         {{-- Paradas --}}
         <li class="treeview">
             <a href="#"><i class='fa fa-hand-paper-o'></i> <span>{{ trans('adminlte_lang::menu.paradas') }}</span> <i class="fa fa-angle-left pull-right"></i></a>
@@ -101,7 +104,14 @@
                 <li><a href="javascript:void(0)" name="tab-divicion-geografica" class="open_tab">{{ trans('adminlte_lang::menu.division_geografica') }}</a></li>   
                 <li><a href="javascript:void(0)" name="tab-tipos-identiicacion" class="open_tab">{{ trans('adminlte_lang::menu.tipos_identificacion') }}</a></li>
             </ul>
-        </li>            
+        </li>  
+          {{-- Generales --}}
+        <li class="treeview">
+            <a href="#"><i class='fa fa-object-group'></i> <span>{{ trans('adminlte_lang::menu.sistema') }}</span> <i class="fa fa-angle-left pull-right"></i></a>
+            <ul class="treeview-menu">
+                <li><a href="javascript:void(0)" name="tab-errores" class="open_tab">{{ trans('adminlte_lang::menu.errores') }}</a></li>               
+            </ul>
+        </li>           
     </ul><!-- /.sidebar-menu -->
 </section>
 <!-- /.sidebar -->

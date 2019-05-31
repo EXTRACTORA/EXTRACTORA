@@ -13,9 +13,11 @@ class metodosAjaxController extends Controller
      */
     public function index()
     {
-        return response()->json([
-            'msg' =>  'respuesta INDEX',
-        ]);   
+        // return response()->json([
+        //     'msg' =>  'respuesta INDEX',
+        // ]);   
+
+        return view('menu.modales.all_modales')->render(); 
     }
 
     /**

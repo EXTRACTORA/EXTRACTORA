@@ -5,7 +5,8 @@
 @endsection
 
 @section('content')
-<body class="hold-transition login-page">
+<body class="hold-transition login-page" background="img/logo.png"  >
+    {{-- style="background-image: url('img/logo.png');background-repeat: no-repeat;" --}}
     <div id="app">
         <div class="login-box">
             <div class="login-logo">
@@ -23,7 +24,7 @@
             </div>
         @endif
 
-        <div class="login-box-body">
+        <div class="login-box-body" style="background-image: url('img/logo.png');">
         <p class="login-box-msg"> {{ trans('adminlte_lang::message.siginsession') }} </p>
         <form action="{{ url('/login') }}" method="post">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">

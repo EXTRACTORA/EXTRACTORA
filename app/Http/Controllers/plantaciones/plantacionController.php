@@ -4,9 +4,10 @@ namespace Extractora\Http\Controllers\plantaciones;
 
 
 use Extractora\Http\Controllers\Controller;
-use Extractora\modelos\plantaciones\lote;
+use Extractora\Http\Requests\plantaciones\plantacionCreateRequest;
+use Extractora\Http\Requests\plantaciones\plantacionUpdateRequest;
+use Extractora\clases\notificaciones;
 use Extractora\modelos\plantaciones\plantacion;
-use Extractora\modelos\plantaciones\zona;
 use Illuminate\Http\Request;
 
 class plantacionController extends Controller
@@ -17,15 +18,12 @@ class plantacionController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-     $plantaciones = plantacion::all();
+    {       
      // $lotes = lote::all();
-     // return view('menu.plantaciones.plantaciones.index', compact('plantaciones','lotes'));   
-
-     return view('menu.plantaciones.plantaciones.index')->render();     
-
-     
- }
+     // return view('menu.plantaciones.plantaciones.index', compact('plantaciones','lotes'));
+        $plantaciones = plantacion::all();
+        return view('menu.plantaciones.plantaciones.index')->render();       
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -34,9 +32,17 @@ class plantacionController extends Controller
      */
     public function create()
     {
-       
-
-    }
+        //enviar el ultimo codigo para crear un nuevo registro
+       if (plantacion::count() > 0) {
+           $codigo = plantacion::all()->last()->id;
+           return response()->json([      
+            'data' => $codigo + 1,
+        ]);
+       }
+       return response()->json([
+        'data' => 1,
+    ]);
+   }
 
     /**
      * Store a newly created resource in storage.
@@ -44,11 +50,17 @@ class plantacionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(plantacionCreateRequest $request)
     {
-
-
-
+        $plantacion = plantacion::create($request->all());
+        if (!$plantacion) {
+            return response()->json([
+                'msg' =>'Error al crear este registro'
+            ]); 
+        }
+        return response()->json([
+            'msg' =>'Registro creado correctamente',
+        ]);
     }
 
     /**
@@ -59,9 +71,10 @@ class plantacionController extends Controller
      */
     public function show($id)
     {
-    //    return response()->json([
-    //     'id' =>  'plantacion3',
-    // ]);    
+        $plantaciones = plantacion::all();
+        return response()->json([
+            'data' =>$plantaciones,
+        ]);
     }
 
     /**
@@ -72,9 +85,10 @@ class plantacionController extends Controller
      */
     public function edit($id)
     {
-    //   return response()->json([
-    //     'id' =>  'plantacion4',
-    // ]);    
+        $plantaciones = plantacion::find($id); 
+        return response()->json([      
+            'data' =>$plantaciones,
+        ]);
     }
 
     /**
@@ -84,23 +98,33 @@ class plantacionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(plantacionUpdateRequest $request, $id)
     {
-    //   return response()->json([
-    //     'id' =>  'plantacion5',
-    // ]);    
+       $plantacion = plantacion::find($id); 
+       $plantacion->update($request->all());
+       if (!$plantacion) {
+        return response()->json(['msg' => 'error en actualizar este registro'], 422); 
     }
+    return response()->json(['msg' => 'Registro actualizado correctamente'], 200); 
 
-    /**
+}
+
+    /**  
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
-        //   return response()->json([
-        //     'id' =>  'plantacion6',
-        // ]);    
+    { 
+     try {
+        $plantacion = plantacion::findOrFail($id);
+        $plantacion->delete();
+        return response()->json(['status' => 'true','msg' => 'Registro eliminado correctamente'], 200); 
     }
+    catch (\Exception $e) {        
+      notificaciones::setError($e->getMessage(),"plantacionController","destroy");
+      return  response()->json(['codigo' => $e->errorInfo,'status' => 'false','msg' =>'Error al eliminar este registro'],200);
+  }
+}
 }

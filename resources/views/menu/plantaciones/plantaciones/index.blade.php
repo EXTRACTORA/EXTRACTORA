@@ -1,34 +1,31 @@
-<div class="container-fluid spark-screen">
-	<div class="row">
-		<div class="col-md-12">
-			<div class="panel panel-default">
-				<div class="page-wrapper">
-					<div class="nth-tabs" id="main-tabs">
-					</div>
-				</div>
-				<div style="margin-top:20px;">
-					<div style="line-height:50px;">	
-						<button type="button" class="btn btn-primary" id="add-tab-content">Add New Tab</button>
-						<button type="button" class="btn btn-primary" id="add-tab-url">Add New URL</button>
-						<button type="button" class="btn btn-primary" id="add-tabs">Bulk Create</button>
-						<button type="button" class="btn btn-info" onclick="nthTabs.setActTab('role-manage');">Set Active Tab</button>
-						<button type="button" class="btn btn-info" onclick="nthTabs.toggleTab('menu-manage')">Toggle Tab</button>
-						<button type="button" class="btn btn-info" onclick="nthTabs.locationTab('home')">Locate Tab</button>
-						<button type="button" class="btn btn-danger" onclick="nthTabs.delTab('role-manage')">Close Tab</button>
-						<button type="button" class="btn btn-danger" onclick="nthTabs.delOtherTab()">Close Others</button>
-						<button type="button" class="btn btn-danger" onclick="nthTabs.delAllTab()">Close All</button>
-						<button type="button" class="btn btn-warning" onclick="$('.roll-nav-left').click()">Scroll Left</button>
-						<button type="button" class="btn btn-warning" onclick="$('.roll-nav-right').click()">Scroll Right</button>
-						<button type="button" class="btn btn-success" onclick="alert(nthTabs.getMarginStep())">Get Step</button>
-						<button type="button" class="btn btn-success" onclick="alert(nthTabs.getActiveId())">Get Current ID</button>
-						<button type="button" class="btn btn-success" onclick="alert(nthTabs.getAllTabWidth())">Get Width</button>
-						<button type="button" class="btn btn-success" onclick="console.log(nthTabs.getTabList());alert(nthTabs.getTabList())">Get Tab List
-						</button>
-					</div>
-				</div>
-				
+<div class="box box-success">
+	<div class="box-header with-border padin-box-header">		
+		<div class="row">
+			<div class="col-lg-12 mb-5">
+				@include('menu.barras.plantaciones.barra_plantacion') 	
 			</div>
 		</div>
+		<div class="box-tools pull-right">	
+			<h3 class="box-title">{{ trans('adminlte_lang::menu.plantaciones') }}</h3>			
+		</div>
+	</div><!-- /.box-header -->
+	<div class="box-body form-horizontal">
+		{{ Form::open(array('route' => 'plantaciones.store','id' =>'form-store-plantaciones','method' => 'POST' )) }}
+			@include('menu.plantaciones.plantaciones.forms.contenidoformulario')
+		{{ Form::close() }}	
 	</div>
-</div>
-{{-- @include('menu.plantaciones.modales.plantaciones') --}}
+
+	@include('ayudas.ayuda_plantaciones')
+	{{-- create  --}}
+	{{ Form::open(array('route' => 'plantaciones.create','id' =>'form-create-plantaciones','method' => 'GET' )) }}{{ Form::close() }}
+	{{-- edit  --}}
+	{{ Form::open(array('route' => ['plantaciones.edit',':ID'],'id' =>'form-edit-plantaciones','method' => 'GET
+	' )) }}{{ Form::close() }}
+	{{-- update  --}}
+	{{ Form::open(array('route' => ['plantaciones.update',':ID'],'id' =>'form-update-plantaciones','method' => 'PUT' )) }}
+	{{ Form::close() }}
+	{{-- delete --}}
+	{{ Form::open(array('route' => ['plantaciones.destroy',':ID'],'id' =>'form-deletes-plantaciones','method' => 'DELETE' )) }}{{ Form::close() }}
+	@section('scripts')
+	{!!Html::script('js/plantaciones/plantaciones.js')!!}
+	@show

@@ -29,6 +29,9 @@ Route::group(['middleware' => 'auth'], function () {
 	 1. USUARIOS
 	 -------------------------------------------------------------------------*/
 	 Route::resource('/perfiles', 'usuarios\perfilController');
+	 Route::resource('/prev_next','registros\prev_nextController');
+	 // Route::post('/prev_next','usuarios\perfilController@prev_next');
+
 	 Route::resource('/permisos', 'usuarios\permisoController');
 	 Route::resource('/usuarios', 'usuarios\usuarioController');
 
@@ -57,7 +60,8 @@ Route::group(['middleware' => 'auth'], function () {
 	 -------------------------------------------------------------------------*/
 	 Route::resource('/tipo_terceros', 'terceros\tipoController');
 	 Route::resource('/terceros', 'terceros\terceroController');
-
+	 Route::resource('/actividad_economicas', 'terceros\actividad_economicaController');
+	 Route::resource('/tipo_identificaciones', 'terceros\tipo_identificacionController');
 	/*------------------------------------------------------------------------
 	 6. PARADAS
 	 -------------------------------------------------------------------------*/
@@ -76,19 +80,16 @@ Route::group(['middleware' => 'auth'], function () {
 	 Route::resource('/unidades_medida', 'generales\unidades_medidaController');
 	 Route::resource('/division_geografica', 'generales\division_geograficaController');
 	 Route::resource('/tipos_identificacion', 'generales\tipos_identificacionController');
-	
+
+	 Route::resource('/paises', 'generales\paisController');
+	 Route::resource('/departamentos', 'generales\departamentoController');
+	 Route::resource('/ciudades', 'generales\ciudadController');
+
 	//metodos ajax 
 	 Route::resource('/metodosAjax', 'metodosAjaxController');
-
-
-
-
-
-
-
-
-
-	 
+	 Route::resource('/estudiantes', 'estudianteController');
+	 //errores 
+	 Route::resource('/errores', 'errores\erroresController');	 
 	 
 
 	});

@@ -2,9 +2,10 @@
 
 namespace Extractora;
 
-use Illuminate\Notifications\Notifiable;
+use Extractora\modelos\errores\logErrores;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -16,7 +17,16 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name'
+        , 'email'
+        , 'password'
+        ,'documento'
+        ,'apellido1'
+        ,'apellido2'
+        ,'activo'
+        ,'roles_id'
+        ,'permiso_id'
+
     ];
 
     /**
@@ -36,4 +46,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    
+          //Relaciones  
+    public function logErrores(){
+        return $this->hasMany(logErrores::class);
+    }
 }
